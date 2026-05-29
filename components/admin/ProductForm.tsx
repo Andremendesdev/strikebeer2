@@ -1,6 +1,9 @@
 "use client";
 
-import type { FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
+import Image from "next/image";
+import { ImagePlus, X } from "lucide-react";
+import { UploadButton } from "@/lib/uploadthing";
 import type { Product, ProductInput } from "@/types";
 
 interface ProductFormProps {
@@ -9,7 +12,27 @@ interface ProductFormProps {
   onCancel: () => void;
 }
 
+type UploadedFile = {
+  url?: string;
+  ufsUrl?: string;
+  serverData?: {
+    imageUrl?: string;
+  };
+};
+
+function getUploadedImageUrl(file?: UploadedFile) {
+  return file?.serverData?.imageUrl ?? file?.ufsUrl ?? file?.url ?? "";
+}
+
 export function ProductForm({ editingProduct, onSubmit, onCancel }: ProductFormProps) {
+  const [imageUrl, setImageUrl] = useState(editingProduct?.imageUrl ?? "");
+  const [uploadError, setUploadError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setImageUrl(editingProduct?.imageUrl ?? "");
+    setUploadError(null);
+  }, [editingProduct]);
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
@@ -19,11 +42,13 @@ export function ProductForm({ editingProduct, onSubmit, onCancel }: ProductFormP
       description: String(form.get("description") ?? "").trim(),
       price: Number(form.get("price") ?? 0),
       category: String(form.get("category") ?? "classico") as ProductInput["category"],
-      imageUrl: String(form.get("imageUrl") ?? "").trim(),
+      imageUrl,
       active: form.get("active") === "on",
     });
 
     event.currentTarget.reset();
+    setImageUrl("");
+    setUploadError(null);
   }
 
   return (
@@ -89,16 +114,57 @@ export function ProductForm({ editingProduct, onSubmit, onCancel }: ProductFormP
           </select>
         </label>
 
-        <label className="space-y-2">
+        <div className="space-y-2">
           <span className="text-xs font-bold uppercase tracking-[0.18em] text-zinc-500">Imagem</span>
-          <input
-            name="imageUrl"
-            type="url"
-            defaultValue={editingProduct?.imageUrl}
-            className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white outline-none focus:border-amber-500/50"
-            placeholder="https://..."
-          />
-        </label>
+          <div className="rounded-2xl border border-white/10 bg-black/30 p-3">
+            <div className="relative mb-3 flex h-36 items-center justify-center overflow-hidden rounded-xl bg-zinc-950">
+              {imageUrl ? (
+                <>
+                  <Image src={imageUrl} alt="Prévia do produto" fill sizes="320px" className="object-cover" />
+                  <button
+                    type="button"
+                    onClick={() => setImageUrl("")}
+                    className="absolute right-2 top-2 rounded-full border border-white/15 bg-black/70 p-2 text-white transition hover:bg-red-500/80"
+                    aria-label="Remover imagem"
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                </>
+              ) : (
+                <div className="flex flex-col items-center gap-2 text-center text-zinc-600">
+                  <ImagePlus className="h-8 w-8" />
+                  <span className="text-xs font-bold uppercase tracking-[0.16em]">Sem imagem</span>
+                </div>
+              )}
+            </div>
+
+            <UploadButton
+              endpoint="productImage"
+              onClientUploadComplete={(files) => {
+                const uploadedUrl = getUploadedImageUrl(files[0] as UploadedFile);
+                if (uploadedUrl) {
+                  setImageUrl(uploadedUrl);
+                  setUploadError(null);
+                }
+              }}
+              onUploadError={(error: Error) => {
+                setUploadError(error.message || "Erro ao enviar imagem.");
+              }}
+              appearance={{
+                container: "w-full",
+                button:
+                  "w-full rounded-xl bg-[var(--neon)] px-4 py-3 text-xs font-black uppercase tracking-[0.16em] text-black transition hover:scale-[1.01] ut-readying:bg-zinc-700 ut-uploading:bg-amber-400",
+                allowedContent: "mt-2 text-center text-[11px] text-zinc-600",
+              }}
+              content={{
+                button: "Enviar imagem",
+                allowedContent: "PNG, JPG ou WEBP até 4MB",
+              }}
+            />
+
+            {uploadError && <p className="mt-2 text-xs text-red-300">{uploadError}</p>}
+          </div>
+        </div>
 
         <label className="space-y-2 md:col-span-2">
           <span className="text-xs font-bold uppercase tracking-[0.18em] text-zinc-500">Descrição</span>
