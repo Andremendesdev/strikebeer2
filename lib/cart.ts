@@ -1,4 +1,4 @@
-export type CartItemType = "burger" | "beer";
+export type CartItemType = "burger";
 
 export interface CartExtra {
   id: string;
@@ -9,7 +9,7 @@ export interface CartExtra {
 export interface CartItem {
   cartId: string;
   type: CartItemType;
-  productId: number;
+  productId: string;
   name: string;
   basePrice: number;
   quantity: number;

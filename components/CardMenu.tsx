@@ -36,7 +36,7 @@ function CartLineItem({
         <div className="min-w-0 flex-1">
           <span
             className="text-[10px] uppercase tracking-[0.15em] font-semibold"
-            style={{ color: item.type === "burger" ? "#facc15" : "#a1a1aa" }}
+            style={{ color: item.type === "burger" ? "var(--neon)" : "#a1a1aa" }}
           >
             {item.type === "burger" ? "Hambúrguer" : "Cerveja"}
           </span>
@@ -77,9 +77,9 @@ function CartLineItem({
                   style={
                     active
                       ? {
-                          background: "#facc15",
+                          background: "var(--neon)",
                           color: "#000",
-                          boxShadow: "0 0 12px rgba(250,204,21,0.25)",
+                          boxShadow: "0 0 12px rgba(234,179,8,0.25)",
                         }
                       : {
                           background: "rgba(255,255,255,0.05)",
@@ -112,7 +112,7 @@ function CartLineItem({
             type="button"
             onClick={() => onQty(item.quantity + 1)}
             className="w-8 h-8 rounded-full flex items-center justify-center text-black transition-colors"
-            style={{ background: "#facc15" }}
+            style={{ background: "var(--neon)" }}
             aria-label="Aumentar quantidade"
           >
             <Plus className="w-3.5 h-3.5" />
@@ -120,7 +120,7 @@ function CartLineItem({
         </div>
         <span
           className="text-lg font-black"
-          style={{ fontFamily: "var(--font-bebas)", color: "#facc15" }}
+          style={{ fontFamily: "var(--font-bebas)", color: "var(--neon)" }}
         >
           {formatPrice(getLineTotal(item))}
         </span>
@@ -190,7 +190,7 @@ export function CardMenu() {
             className="fixed top-0 right-0 bottom-0 z-50 flex flex-col w-full max-w-md shadow-2xl"
             style={{
               background: "#0d0d0f",
-              borderLeft: "1px solid rgba(250,204,21,0.12)",
+              borderLeft: "1px solid rgba(234,179,8,0.12)",
             }}
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
@@ -206,11 +206,11 @@ export function CardMenu() {
                 <div
                   className="w-10 h-10 rounded-xl flex items-center justify-center"
                   style={{
-                    background: "rgba(250,204,21,0.1)",
-                    border: "1px solid rgba(250,204,21,0.2)",
+                    background: "rgba(234,179,8,0.1)",
+                    border: "1px solid rgba(234,179,8,0.2)",
                   }}
                 >
-                  <ShoppingBag className="w-5 h-5 text-[#facc15]" strokeWidth={2} />
+                  <ShoppingBag className="w-5 h-5 text-[var(--neon)]" strokeWidth={2} />
                 </div>
                 <div>
                   <h2
@@ -256,7 +256,7 @@ export function CardMenu() {
                     Não há nada selecionado
                   </p>
                   <p className="text-sm text-zinc-500 max-w-[240px] leading-relaxed">
-                    Adicione hambúrgueres ou cervejas do cardápio para montar seu pedido.
+                    Adicione hambúrgueres do cardápio para montar seu pedido.
                   </p>
                 </div>
               ) : (
@@ -294,7 +294,7 @@ export function CardMenu() {
                     value={customer.name}
                     onChange={(e) => setCustomer("name", e.target.value)}
                     placeholder="Seu nome"
-                    className="w-full px-4 py-3 rounded-xl text-sm text-white placeholder:text-zinc-600 outline-none transition-colors focus:ring-1 focus:ring-[#facc15]/50"
+                    className="w-full px-4 py-3 rounded-xl text-sm text-white placeholder:text-zinc-600 outline-none transition-colors focus:ring-1 focus:ring-[var(--neon)]/50"
                     style={{
                       background: "rgba(255,255,255,0.04)",
                       border: "1px solid rgba(255,255,255,0.08)",
@@ -311,7 +311,7 @@ export function CardMenu() {
                     value={customer.phone}
                     onChange={(e) => setCustomer("phone", e.target.value)}
                     placeholder="(00) 00000-0000"
-                    className="w-full px-4 py-3 rounded-xl text-sm text-white placeholder:text-zinc-600 outline-none transition-colors focus:ring-1 focus:ring-[#facc15]/50"
+                    className="w-full px-4 py-3 rounded-xl text-sm text-white placeholder:text-zinc-600 outline-none transition-colors focus:ring-1 focus:ring-[var(--neon)]/50"
                     style={{
                       background: "rgba(255,255,255,0.04)",
                       border: "1px solid rgba(255,255,255,0.08)",
@@ -328,7 +328,7 @@ export function CardMenu() {
                     value={customer.cpf}
                     onChange={(e) => setCustomer("cpf", e.target.value)}
                     placeholder="000.000.000-00"
-                    className="w-full px-4 py-3 rounded-xl text-sm text-white placeholder:text-zinc-600 outline-none transition-colors focus:ring-1 focus:ring-[#facc15]/50"
+                    className="w-full px-4 py-3 rounded-xl text-sm text-white placeholder:text-zinc-600 outline-none transition-colors focus:ring-1 focus:ring-[var(--neon)]/50"
                     style={{
                       background: "rgba(255,255,255,0.04)",
                       border: "1px solid rgba(255,255,255,0.08)",
@@ -343,20 +343,20 @@ export function CardMenu() {
                   animate={{ opacity: 1, y: 0 }}
                   className={`text-sm text-center px-4 py-3 rounded-xl ${
                     orderConfirmed
-                      ? "text-[#facc15]"
+                      ? "text-[var(--neon)]"
                       : feedback === closedMessage
                         ? "text-[#f87171]"
                         : "text-zinc-400"
                   }`}
                   style={{
                     background: orderConfirmed
-                      ? "rgba(250,204,21,0.08)"
+                      ? "rgba(234,179,8,0.08)"
                       : feedback === closedMessage
                         ? "rgba(248,113,113,0.1)"
                         : "rgba(255,255,255,0.04)",
                     border: `1px solid ${
                       orderConfirmed
-                        ? "rgba(250,204,21,0.2)"
+                        ? "rgba(234,179,8,0.2)"
                         : feedback === closedMessage
                           ? "rgba(248,113,113,0.35)"
                           : "rgba(255,255,255,0.08)"
@@ -384,7 +384,7 @@ export function CardMenu() {
                 <span className="text-xs uppercase tracking-[0.15em] text-zinc-500">Total</span>
                 <span
                   className="text-2xl font-black"
-                  style={{ fontFamily: "var(--font-bebas)", color: "#facc15" }}
+                  style={{ fontFamily: "var(--font-bebas)", color: "var(--neon)" }}
                 >
                   {formatPrice(total)}
                 </span>
@@ -394,13 +394,13 @@ export function CardMenu() {
                 type="button"
                 onClick={handleConfirm}
                 disabled={isEmpty}
-                whileHover={!isEmpty ? { scale: 1.02, boxShadow: "0 0 32px rgba(250,204,21,0.5)" } : {}}
+                whileHover={!isEmpty ? { scale: 1.02, boxShadow: "0 0 32px rgba(234,179,8,0.5)" } : {}}
                 whileTap={!isEmpty ? { scale: 0.98 } : {}}
                 className="w-full py-4 rounded-full text-sm font-bold uppercase tracking-[0.12em] transition-opacity duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
                 style={{
-                  background: isEmpty ? "rgba(250,204,21,0.25)" : "#facc15",
+                  background: isEmpty ? "rgba(234,179,8,0.25)" : "var(--neon)",
                   color: "#000",
-                  boxShadow: isEmpty ? "none" : "0 0 24px rgba(250,204,21,0.3)",
+                  boxShadow: isEmpty ? "none" : "0 0 24px rgba(234,179,8,0.3)",
                 }}
               >
                 {isEmpty ? "Não há nada selecionado" : "Confirmar pedido"}

@@ -7,7 +7,6 @@ const MAPS_LINK = "https://www.google.com/maps/search/?api=1&query=Strike+Beer+S
 
 const navLinks = [
   { label: "Cardápio", href: "#cardapio" },
-  { label: "Cervejas", href: "#cervejas" },
   { label: "Eventos", href: "#eventos" },
   { label: "Avaliações", href: "#avaliacoes" },
 ];
@@ -31,7 +30,7 @@ export function Footer() {
         className="absolute top-0 left-0 right-0 h-px pointer-events-none"
         style={{
           background:
-            "linear-gradient(to right, transparent, rgba(250,204,21,0.25) 40%, rgba(250,204,21,0.4) 50%, rgba(250,204,21,0.25) 60%, transparent)",
+            "linear-gradient(to right, transparent, rgba(234,179,8,0.25) 40%, rgba(234,179,8,0.4) 50%, rgba(234,179,8,0.25) 60%, transparent)",
         }}
       />
 
@@ -74,16 +73,16 @@ export function Footer() {
           {/* brand */}
           <div className="lg:col-span-1">
             <a href="/" className="inline-flex items-center gap-2.5 mb-4">
-              <Guitar className="w-5 h-7 text-[#facc15]" strokeWidth={2} aria-hidden />
+              <Guitar className="w-5 h-7 text-[var(--neon)]" strokeWidth={2} aria-hidden />
               <span
                 className="text-xl font-black uppercase text-white"
                 style={{ fontFamily: "var(--font-bebas)", letterSpacing: "0.18em" }}
               >
-                Strike <span className="text-[#facc15]">Beer</span>
+                Strike <span className="text-[var(--neon)]">Beer</span>
               </span>
             </a>
             <p className="text-sm text-zinc-500 leading-relaxed max-w-xs">
-              Rock bar premium, burgers gourmet e mais de 200 rótulos de cerveja artesanal.
+              Rock bar premium e burgers gourmet de verdade.
             </p>
           </div>
 
@@ -105,9 +104,9 @@ export function Footer() {
                   href={MAPS_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-start gap-2.5 text-sm text-zinc-400 hover:text-[#facc15] transition-colors group"
+                  className="flex items-start gap-2.5 text-sm text-zinc-400 hover:text-[var(--neon)] transition-colors group"
                 >
-                  <MapPin className="w-4 h-4 shrink-0 mt-0.5 text-[#facc15]" strokeWidth={2} />
+                  <MapPin className="w-4 h-4 shrink-0 mt-0.5 text-[var(--neon)]" strokeWidth={2} />
                   <span>
                     Rua Augusta, 1456 — Consolação
                     <br />
@@ -119,18 +118,18 @@ export function Footer() {
               <li>
                 <a
                   href="tel:+5511999999999"
-                  className="flex items-center gap-2.5 text-sm text-zinc-400 hover:text-[#facc15] transition-colors"
+                  className="flex items-center gap-2.5 text-sm text-zinc-400 hover:text-[var(--neon)] transition-colors"
                 >
-                  <Phone className="w-4 h-4 shrink-0 text-[#facc15]" strokeWidth={2} />
+                  <Phone className="w-4 h-4 shrink-0 text-[var(--neon)]" strokeWidth={2} />
                   (11) 99999-9999
                 </a>
               </li>
               <li>
                 <a
                   href="mailto:contato@strikebeer.com.br"
-                  className="flex items-center gap-2.5 text-sm text-zinc-400 hover:text-[#facc15] transition-colors"
+                  className="flex items-center gap-2.5 text-sm text-zinc-400 hover:text-[var(--neon)] transition-colors"
                 >
-                  <Mail className="w-4 h-4 shrink-0 text-[#facc15]" strokeWidth={2} />
+                  <Mail className="w-4 h-4 shrink-0 text-[var(--neon)]" strokeWidth={2} />
                   contato@strikebeer.com.br
                 </a>
               </li>
@@ -153,7 +152,7 @@ export function Footer() {
               {hours.map((row) => (
                 <li key={row.days} className="flex items-center justify-between gap-4 text-sm">
                   <span className="flex items-center gap-2 text-zinc-500">
-                    <Clock className="w-3.5 h-3.5 text-[#facc15]" strokeWidth={2} />
+                    <Clock className="w-3.5 h-3.5 text-[var(--neon)]" strokeWidth={2} />
                     {row.days}
                   </span>
                   <span className="text-zinc-300 font-medium">{row.time}</span>
@@ -179,7 +178,7 @@ export function Footer() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-sm text-zinc-400 hover:text-[#facc15] transition-colors uppercase tracking-[0.08em]"
+                    className="text-sm text-zinc-400 hover:text-[var(--neon)] transition-colors uppercase tracking-[0.08em]"
                   >
                     {link.label}
                   </a>
@@ -192,9 +191,9 @@ export function Footer() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 mt-6 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-[0.1em] transition-all duration-300 hover:scale-[1.03]"
               style={{
-                background: "#facc15",
+                background: "var(--neon)",
                 color: "#000",
-                boxShadow: "0 0 16px rgba(250,204,21,0.25)",
+                boxShadow: "0 0 16px rgba(234,179,8,0.25)",
               }}
             >
               <MapPin className="w-3.5 h-3.5" strokeWidth={2.5} />

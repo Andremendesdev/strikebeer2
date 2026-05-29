@@ -35,8 +35,8 @@ function LightningBolt({ className }: { className?: string }) {
     >
       <path
         d="M28 2L4 44H22L20 78L44 36H26L28 2Z"
-        fill="#facc15"
-        stroke="#facc15"
+        fill="var(--neon)"
+        stroke="var(--neon)"
         strokeWidth="1"
         strokeLinejoin="round"
       />
@@ -67,8 +67,8 @@ function Spark({ x, y, delay }: { x: number; y: number; delay: number }) {
       <div
         className="w-1 h-1 rounded-full"
         style={{
-          background: "#facc15",
-          boxShadow: "0 0 6px 2px rgba(250,204,21,0.6)",
+          background: "var(--neon)",
+          boxShadow: "0 0 6px 2px rgba(234,179,8,0.6)",
         }}
       />
     </motion.div>
@@ -83,7 +83,7 @@ function StatItem({ value, label }: { value: string; label: string }) {
         className="text-3xl md:text-4xl font-black tracking-tight leading-none"
         style={{
           fontFamily: "var(--font-bebas)",
-          color: "#facc15",
+          color: "var(--neon)",
         }}
       >
         {value}
@@ -191,7 +191,7 @@ export function HeroSection() {
           width: "600px",
           height: "600px",
           background:
-            "radial-gradient(circle, rgba(250,204,21,0.07) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(234,179,8,0.07) 0%, transparent 70%)",
           borderRadius: "50%",
         }}
       />
@@ -205,7 +205,7 @@ export function HeroSection() {
           width: "500px",
           height: "500px",
           background:
-            "radial-gradient(circle, rgba(250,204,21,0.05) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(234,179,8,0.05) 0%, transparent 70%)",
           borderRadius: "50%",
         }}
       />
@@ -226,11 +226,11 @@ export function HeroSection() {
             width: "3px",
             height: "110vh",
             background:
-              "linear-gradient(to bottom, transparent, rgba(250,204,21,0.5) 30%, rgba(250,204,21,0.8) 50%, rgba(250,204,21,0.5) 70%, transparent)",
+              "linear-gradient(to bottom, transparent, rgba(234,179,8,0.5) 30%, rgba(234,179,8,0.8) 50%, rgba(234,179,8,0.5) 70%, transparent)",
             transform: "rotate(12deg)",
             transformOrigin: "top center",
             filter: "blur(1px)",
-            boxShadow: "0 0 20px rgba(250,204,21,0.3)",
+            boxShadow: "0 0 20px rgba(234,179,8,0.3)",
           }}
         />
       </motion.div>
@@ -250,7 +250,7 @@ export function HeroSection() {
             width: "1px",
             height: "110vh",
             background:
-              "linear-gradient(to bottom, transparent, rgba(250,204,21,0.2) 40%, rgba(250,204,21,0.3) 55%, transparent)",
+              "linear-gradient(to bottom, transparent, rgba(234,179,8,0.2) 40%, rgba(234,179,8,0.3) 55%, transparent)",
             transform: "rotate(12deg)",
             transformOrigin: "top center",
           }}
@@ -287,10 +287,10 @@ export function HeroSection() {
           custom={0.2}
           className="flex items-center gap-3 mb-6"
         >
-          <span className="block h-px w-10" style={{ background: "#facc15" }} />
+          <span className="block h-px w-10" style={{ background: "var(--neon)" }} />
           <span
             className="text-xs uppercase tracking-[0.3em] font-semibold"
-            style={{ color: "#facc15" }}
+            style={{ color: "var(--neon)" }}
           >
             O templo do rock & do burger bruto em Piraju
           </span>
@@ -323,10 +323,10 @@ export function HeroSection() {
             style={{
               fontFamily: "var(--font-bebas)",
               fontSize: "clamp(4.5rem, 16vw, 14rem)",
-              color: "#facc15",
+              color: "var(--neon)",
               letterSpacing: "0.02em",
               textShadow:
-                "0 0 40px rgba(250,204,21,0.5), 0 0 80px rgba(250,204,21,0.2)",
+                "0 0 40px rgba(234,179,8,0.5), 0 0 80px rgba(234,179,8,0.2)",
             }}
           >
             Beer
@@ -376,14 +376,14 @@ export function HeroSection() {
               href="#"
               whileHover={{
                 scale: 1.04,
-                boxShadow: "0 0 30px rgba(250,204,21,0.5)",
+                boxShadow: "0 0 30px rgba(234,179,8,0.5)",
               }}
               whileTap={{ scale: 0.97 }}
               className="flex items-center justify-center gap-2.5 px-8 py-4 rounded-full text-sm font-bold uppercase tracking-[0.12em] transition-colors duration-300"
               style={{
-                background: "#facc15",
+                background: "var(--neon)",
                 color: "#000",
-                boxShadow: "0 0 20px rgba(250,204,21,0.3)",
+                boxShadow: "0 0 20px rgba(234,179,8,0.3)",
               }}
             >
               <LightningBolt className="w-3 h-5" />
@@ -394,8 +394,8 @@ export function HeroSection() {
               href="#eventos"
               whileHover={{
                 scale: 1.04,
-                borderColor: "rgba(250,204,21,0.6)",
-                color: "#facc15",
+                borderColor: "rgba(234,179,8,0.6)",
+                color: "var(--neon)",
               }}
               whileTap={{ scale: 0.97 }}
               className="flex items-center justify-center gap-2.5 px-8 py-4 rounded-full text-sm font-bold uppercase tracking-[0.12em] border text-white transition-all duration-300"
@@ -424,7 +424,7 @@ export function HeroSection() {
               background: "rgba(255,255,255,0.03)",
               backdropFilter: "blur(12px)",
               border: "1px solid rgba(255,255,255,0.07)",
-              boxShadow: "0 0 0 1px rgba(250,204,21,0.05) inset",
+              boxShadow: "0 0 0 1px rgba(234,179,8,0.05) inset",
             }}
           >
             <StatItem value="8+" label="Anos de história" />
@@ -452,7 +452,7 @@ export function HeroSection() {
           className="w-px h-8"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(250,204,21,0.6), transparent)",
+              "linear-gradient(to bottom, rgba(234,179,8,0.6), transparent)",
           }}
         />
       </motion.div>

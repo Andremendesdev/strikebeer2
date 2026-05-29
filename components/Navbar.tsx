@@ -8,7 +8,6 @@ import { isStrikeBeerOpen } from "@/lib/opening-hours";
 /* ─── data ───────────────────────────────────────────────── */
 const links = [
   { label: "Cardápio", href: "#cardapio" },
-  { label: "Cervejas", href: "#cervejas" },
   { label: "Eventos", href: "#eventos" },
   { label: "Contato", href: "#contato" },
 ];
@@ -67,7 +66,7 @@ function NavLink({ href, label }: { href: string; label: string }) {
       {label}
       <span
         className="absolute -bottom-0.5 left-0 h-px w-0 group-hover:w-full transition-all duration-300 ease-out"
-        style={{ background: "#facc15" }}
+        style={{ background: "var(--neon)" }}
       />
     </a>
   );
@@ -101,7 +100,7 @@ function MobileMenu({
             className="fixed top-0 right-0 bottom-0 z-50 w-[80vw] max-w-sm flex flex-col"
             style={{
               background: "#0d0d0f",
-              borderLeft: "1px solid rgba(250,204,21,0.1)",
+              borderLeft: "1px solid rgba(234,179,8,0.1)",
             }}
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
@@ -111,7 +110,7 @@ function MobileMenu({
             {/* top bar */}
             <div className="flex items-center justify-between px-8 pt-8 pb-6 border-b border-white/5">
               <div className="flex items-center gap-2.5">
-                <Guitar className="w-6 h-8 text-[#facc15]" strokeWidth={2} aria-hidden />
+                <Guitar className="w-6 h-8 text-[var(--neon)]" strokeWidth={2} aria-hidden />
                 <span
                   className="text-lg font-black uppercase text-white"
                   style={{
@@ -148,7 +147,7 @@ function MobileMenu({
                     ease: [0.16, 1, 0.3, 1],
                     delay: 0.1 + i * 0.06,
                   }}
-                  className="group flex items-center justify-between py-4 border-b text-white hover:text-[#facc15] transition-colors duration-300"
+                  className="group flex items-center justify-between py-4 border-b text-white hover:text-[var(--neon)] transition-colors duration-300"
                   style={{ borderColor: "rgba(255,255,255,0.05)" }}
                 >
                   <span
@@ -161,7 +160,7 @@ function MobileMenu({
                     className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity -translate-x-2 group-hover:translate-x-0 duration-300"
                     viewBox="0 0 24 24"
                     fill="none"
-                    stroke="#facc15"
+                    stroke="var(--neon)"
                     strokeWidth="2"
                   >
                     <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
@@ -182,12 +181,12 @@ function MobileMenu({
                 onClick={onClose}
                 className="flex items-center justify-center gap-2 w-full py-4 rounded-2xl text-sm font-bold uppercase tracking-[0.12em] transition-all duration-300 active:scale-95"
                 style={{
-                  background: "#facc15",
+                  background: "var(--neon)",
                   color: "#000",
-                  boxShadow: "0 0 24px rgba(250,204,21,0.3)",
+                  boxShadow: "0 0 24px rgba(234,179,8,0.3)",
                 }}
               >
-                <Guitar className="w-6 h-8 text-[#facc15]" strokeWidth={2} aria-hidden />
+                <Guitar className="w-6 h-8 text-[var(--neon)]" strokeWidth={2} aria-hidden />
                 Pedir Agora
               </a>
               <p className="text-center text-[10px] text-zinc-600 mt-4 uppercase tracking-[0.15em]">
@@ -242,7 +241,7 @@ export function Navbar() {
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
           style={{
             height: "2px",
-            background: "linear-gradient(90deg, transparent, #facc15 40%, #facc15 60%, transparent)",
+            background: "linear-gradient(90deg, transparent, var(--neon) 40%, var(--neon) 60%, transparent)",
             transformOrigin: "left",
           }}
         />
@@ -268,7 +267,7 @@ export function Navbar() {
               whileHover={{ scale: 1.1, rotate: 5 }}
               transition={{ type: "spring", stiffness: 300, damping: 15 }}
             >
-              <Guitar className="w-6 h-8 text-[#facc15]" strokeWidth={2} aria-hidden />
+              <Guitar className="w-6 h-8 text-[var(--neon)]" strokeWidth={2} aria-hidden />
             </motion.div>
             <span
               className="font-black uppercase text-white"
@@ -280,7 +279,7 @@ export function Navbar() {
               }}
             >
               Strike{" "}
-              <span style={{ color: "#facc15" }}>Beer</span>
+              <span style={{ color: "var(--neon)" }}>Beer</span>
             </span>
           </a>
 
@@ -309,17 +308,17 @@ export function Navbar() {
               href="#"
               whileHover={{
                 scale: 1.05,
-                boxShadow: "0 0 28px rgba(250,204,21,0.5)",
+                boxShadow: "0 0 28px rgba(234,179,8,0.5)",
               }}
               whileTap={{ scale: 0.96 }}
               className="flex items-center gap-2 px-5 py-2.5 rounded-full text-[11px] font-bold uppercase tracking-[0.12em] transition-colors duration-300"
               style={{
-                background: "#facc15",
+                background: "var(--neon)",
                 color: "#000",
-                boxShadow: "0 0 16px rgba(250,204,21,0.25)",
+                boxShadow: "0 0 16px rgba(234,179,8,0.25)",
               }}
             >
-              <Guitar className="w-2 h-3.5 text-[#facc15]" strokeWidth={2} aria-hidden />
+              <Guitar className="w-2 h-3.5 text-[var(--neon)]" strokeWidth={2} aria-hidden />
               Pedir Agora
             </motion.a>
           </div>
@@ -338,7 +337,7 @@ export function Navbar() {
             />
             <span
               className="block h-px transition-all duration-300"
-              style={{ width: "16px", background: "#facc15" }}
+              style={{ width: "16px", background: "var(--neon)" }}
             />
             <span
               className="block h-px transition-all duration-300 group-hover:w-6"

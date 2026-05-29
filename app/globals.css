@@ -2,8 +2,9 @@
 
 @layer base {
   :root {
-    --neon: #facc15;
-    --neon-dim: #d97706;
+    --neon: var(--color-amber-500);
+    --neon-rgb: 234 179 8;
+    --neon-dim: var(--color-yellow-600);
     --bg: #09090b;
     --surface: #111113;
     --surface-2: #18181b;
@@ -50,19 +51,24 @@
   }
 }
 
+@keyframes shrink {
+  from { transform: scaleX(1); }
+  to   { transform: scaleX(0); }
+}
+
 @layer utilities {
   .neon-glow {
     text-shadow:
-      0 0 20px rgba(232, 255, 0, 0.6),
-      0 0 40px rgba(232, 255, 0, 0.3),
-      0 0 80px rgba(232, 255, 0, 0.15);
+      0 0 20px rgb(var(--neon-rgb) / 0.6),
+      0 0 40px rgb(var(--neon-rgb) / 0.3),
+      0 0 80px rgb(var(--neon-rgb) / 0.15);
   }
 
   .neon-border {
     box-shadow:
-      0 0 0 1px rgba(232, 255, 0, 0.3),
-      0 0 20px rgba(232, 255, 0, 0.1),
-      inset 0 0 20px rgba(232, 255, 0, 0.03);
+      0 0 0 1px rgb(var(--neon-rgb) / 0.3),
+      0 0 20px rgb(var(--neon-rgb) / 0.1),
+      inset 0 0 20px rgb(var(--neon-rgb) / 0.03);
   }
 
   .glass {

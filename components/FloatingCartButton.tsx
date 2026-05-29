@@ -23,7 +23,7 @@ export function FloatingCartButton({ count = 0, onClick }: FloatingCartButtonPro
       {hasItems && (
         <motion.span
           className="absolute inset-0 rounded-full pointer-events-none"
-          style={{ background: "rgba(250,204,21,0.3)" }}
+          style={{ background: "rgba(234,179,8,0.3)" }}
           animate={{ scale: [1, 1.4, 1], opacity: [0.5, 0, 0.5] }}
           transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
           aria-hidden
@@ -39,16 +39,16 @@ export function FloatingCartButton({ count = 0, onClick }: FloatingCartButtonPro
         whileHover={{
           scale: 1.07,
           boxShadow:
-            "0 0 36px rgba(250,204,21,0.65), 0 0 64px rgba(250,204,21,0.2), 0 12px 40px rgba(0,0,0,0.45)",
+            "0 0 36px rgba(234,179,8,0.65), 0 0 64px rgba(234,179,8,0.2), 0 12px 40px rgba(0,0,0,0.45)",
         }}
         whileTap={{ scale: 0.94 }}
         className="relative flex items-center justify-center w-14 h-14 md:w-[4.25rem] md:h-[4.25rem] rounded-full transition-shadow duration-300"
         style={{
-          background: "linear-gradient(145deg, #fde047 0%, #facc15 45%, #eab308 100%)",
+          background: "linear-gradient(145deg, var(--neon) 0%, var(--neon) 45%, var(--neon) 100%)",
           color: "#09090b",
           border: "1px solid rgba(255,255,255,0.25)",
           boxShadow:
-            "0 0 28px rgba(250,204,21,0.5), 0 0 56px rgba(250,204,21,0.12), 0 10px 36px rgba(0,0,0,0.5)",
+            "0 0 28px rgba(234,179,8,0.5), 0 0 56px rgba(234,179,8,0.12), 0 10px 36px rgba(0,0,0,0.5)",
         }}
       >
         <ShoppingCart className="w-6 h-6 md:w-7 md:h-7" strokeWidth={2.25} aria-hidden />
@@ -64,9 +64,9 @@ export function FloatingCartButton({ count = 0, onClick }: FloatingCartButtonPro
               className="absolute -top-0.5 -right-0.5 min-w-[1.375rem] h-[1.375rem] px-1 flex items-center justify-center rounded-full text-[11px] font-bold leading-none"
               style={{
                 background: "#09090b",
-                color: "#facc15",
-                border: "2px solid #facc15",
-                boxShadow: "0 0 14px rgba(250,204,21,0.55)",
+                color: "var(--neon)",
+                border: "2px solid var(--neon)",
+                boxShadow: "0 0 14px rgba(234,179,8,0.55)",
               }}
             >
               {count > 9 ? "9+" : count}

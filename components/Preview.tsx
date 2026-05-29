@@ -84,8 +84,8 @@ function Stars({ rating }: { rating: number }) {
         <Star
           key={i}
           className="w-3.5 h-3.5"
-          fill={i <= rating ? "#facc15" : "transparent"}
-          stroke={i <= rating ? "#facc15" : "rgba(255,255,255,0.2)"}
+          fill={i <= rating ? "var(--neon)" : "transparent"}
+          stroke={i <= rating ? "var(--neon)" : "rgba(255,255,255,0.2)"}
           strokeWidth={1.5}
         />
       ))}
@@ -118,7 +118,7 @@ function ReviewCard({
       <div className="flex items-start gap-3">
         <div
           className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold text-black"
-          style={{ background: "#facc15" }}
+          style={{ background: "var(--neon)" }}
         >
           {initial}
         </div>
@@ -150,7 +150,7 @@ export function Preview() {
         className="absolute top-0 left-0 right-0 h-px pointer-events-none"
         style={{
           background:
-            "linear-gradient(to right, transparent, rgba(250,204,21,0.2) 30%, rgba(250,204,21,0.35) 50%, rgba(250,204,21,0.2) 70%, transparent)",
+            "linear-gradient(to right, transparent, rgba(234,179,8,0.2) 30%, rgba(234,179,8,0.35) 50%, rgba(234,179,8,0.2) 70%, transparent)",
         }}
       />
 
@@ -163,10 +163,10 @@ export function Preview() {
             transition={{ duration: 0.6, ease: EASE }}
             className="flex items-center gap-3 mb-5"
           >
-            <span className="block h-px w-10" style={{ background: "#facc15" }} />
+            <span className="block h-px w-10" style={{ background: "var(--neon)" }} />
             <span
               className="text-xs uppercase tracking-[0.3em] font-semibold"
-              style={{ color: "#facc15" }}
+              style={{ color: "var(--neon)" }}
             >
               Avaliações — Google
             </span>
@@ -190,8 +190,8 @@ export function Preview() {
                 <br />
                 <span
                   style={{
-                    color: "#facc15",
-                    textShadow: "0 0 28px rgba(250,204,21,0.35)",
+                    color: "var(--neon)",
+                    textShadow: "0 0 28px rgba(234,179,8,0.35)",
                   }}
                 >
                   no Google
@@ -216,7 +216,7 @@ export function Preview() {
                 <div className="flex items-baseline gap-2">
                   <span
                     className="text-4xl font-black leading-none"
-                    style={{ fontFamily: "var(--font-bebas)", color: "#facc15" }}
+                    style={{ fontFamily: "var(--font-bebas)", color: "var(--neon)" }}
                   >
                     {GOOGLE_RATING.toFixed(1)}
                   </span>
@@ -251,8 +251,8 @@ export function Preview() {
             rel="noopener noreferrer"
             whileHover={{
               scale: 1.03,
-              borderColor: "rgba(250,204,21,0.4)",
-              color: "#facc15",
+              borderColor: "rgba(234,179,8,0.4)",
+              color: "var(--neon)",
             }}
             whileTap={{ scale: 0.97 }}
             className="inline-flex items-center gap-3 px-7 py-3.5 rounded-full text-sm font-semibold uppercase tracking-[0.1em] text-zinc-400 transition-all duration-300"

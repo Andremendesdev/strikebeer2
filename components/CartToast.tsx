@@ -22,16 +22,16 @@ export function CartToast({ message }: CartToastProps) {
           style={{
             background: "rgba(17,17,19,0.92)",
             backdropFilter: "blur(16px)",
-            border: "1px solid rgba(250,204,21,0.25)",
+            border: "1px solid rgba(234,179,8,0.25)",
             boxShadow:
-              "0 0 28px rgba(250,204,21,0.2), 0 8px 32px rgba(0,0,0,0.5)",
+              "0 0 28px rgba(234,179,8,0.2), 0 8px 32px rgba(0,0,0,0.5)",
           }}
         >
           <span
             className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
             style={{
-              background: "#facc15",
-              boxShadow: "0 0 14px rgba(250,204,21,0.4)",
+              background: "var(--neon)",
+              boxShadow: "0 0 14px rgba(234,179,8,0.4)",
             }}
           >
             <Check className="w-4 h-4 text-black" strokeWidth={3} />

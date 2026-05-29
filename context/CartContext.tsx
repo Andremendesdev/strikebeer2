@@ -19,7 +19,7 @@ import {
 import { isStrikeBeerOpen } from "@/lib/opening-hours";
 
 interface AddProductInput {
-  id: number;
+  id: string;
   name: string;
   price: number;
   meta?: string;
@@ -36,7 +36,6 @@ interface CartContextValue {
   closeMenu: () => void;
   setCustomer: (field: keyof CustomerInfo, value: string) => void;
   addBurger: (product: AddProductInput) => void;
-  addBeer: (product: AddProductInput) => void;
   removeItem: (cartId: string) => void;
   updateQuantity: (cartId: string, quantity: number) => void;
   toggleExtra: (cartId: string, extraId: string) => void;
@@ -86,24 +85,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
       {
         cartId: newCartId(),
         type: "burger",
-        productId: product.id,
-        name: product.name,
-        basePrice: product.price,
-        quantity: 1,
-        extras: [],
-        meta: product.meta,
-      },
-    ]);
-    showAddToast(product.name);
-    setOrderConfirmed(false);
-  }, [showAddToast]);
-
-  const addBeer = useCallback((product: AddProductInput) => {
-    setItems((prev) => [
-      ...prev,
-      {
-        cartId: newCartId(),
-        type: "beer",
         productId: product.id,
         name: product.name,
         basePrice: product.price,
@@ -183,7 +164,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
       closeMenu,
       setCustomer,
       addBurger,
-      addBeer,
       removeItem,
       updateQuantity,
       toggleExtra,
@@ -202,7 +182,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
       closeMenu,
       setCustomer,
       addBurger,
-      addBeer,
       removeItem,
       updateQuantity,
       toggleExtra,

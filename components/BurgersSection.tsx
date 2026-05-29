@@ -1,158 +1,25 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
+import type { Product } from "@/types";
 
-/* ─── types ─────────────────────────────────────────────── */
-type Badge = "Mais Pedido" | "Novo" | "Chef's Pick" | "Vegano" | "Limitado";
-
-interface Burger {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  oldPrice?: number;
-  rating: number;
-  reviews: number;
-  badge?: Badge;
-  category: string;
-  tags: string[];
-  imageUrl: string;
-  calories: number;
-}
-
-/* ─── data ───────────────────────────────────────────────── */
-const burgers: Burger[] = [
-  {
-    id: 1,
-    name: "Strike Smash",
-    description:
-      "Dois smash patties de angus, queijo americano duplo, molho especial da casa, pickles crocantes e cebola caramelizada.",
-    price: 42.9,
-    rating: 4.9,
-    reviews: 312,
-    badge: "Mais Pedido",
-    category: "classicos",
-    tags: ["Angus", "Smash", "Duplo"],
-    imageUrl:
-      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=85&auto=format&fit=crop",
-    calories: 820,
-  },
-  {
-    id: 2,
-    name: "Rock'n Bacon",
-    description:
-      "Blend de costela bovina, bacon crocante defumado, cheddar inglês, alface roxa, tomate confit e aioli de alho negro.",
-    price: 48.9,
-    oldPrice: 54.9,
-    rating: 4.8,
-    reviews: 198,
-    badge: "Chef's Pick",
-    category: "premium",
-    tags: ["Costela", "Bacon", "Cheddar"],
-    imageUrl:
-      "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=600&q=85&auto=format&fit=crop",
-    calories: 960,
-  },
-  {
-    id: 3,
-    name: "Thunder Beast",
-    description:
-      "Blend wagyu 180g, queijo gruyère fundido, cogumelos salteados na manteiga, rúcula selvagem e molho de trufas.",
-    price: 64.9,
-    rating: 4.9,
-    reviews: 87,
-    badge: "Limitado",
-    category: "premium",
-    tags: ["Wagyu", "Trufas", "Gruyère"],
-    imageUrl:
-      "https://images.unsplash.com/photo-1550547660-d9450f859349?w=600&q=85&auto=format&fit=crop",
-    calories: 1050,
-  },
-  {
-    id: 4,
-    name: "Neon Crispy",
-    description:
-      "Frango empanado artesanal, jalapeños em conserva, coleslaw cremoso, cheddar derretido e molho ranch defumado.",
-    price: 38.9,
-    rating: 4.7,
-    reviews: 245,
-    badge: "Novo",
-    category: "especiais",
-    tags: ["Frango", "Crispy", "Picante"],
-    imageUrl:
-      "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=600&q=85&auto=format&fit=crop",
-    calories: 780,
-  },
-  {
-    id: 5,
-    name: "Black Label",
-    description:
-      "Costela bovina low & slow 12h, queijo brie gratinado, cebola roxa marinada, mostarda dijon e pão brioche artesanal.",
-    price: 56.9,
-    rating: 4.8,
-    reviews: 134,
-    category: "premium",
-    tags: ["Costela", "Slow Cook", "Brie"],
-    imageUrl:
-      "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=600&q=85&auto=format&fit=crop",
-    calories: 1100,
-  },
-  {
-    id: 6,
-    name: "Green Machine",
-    description:
-      "Blend de grão-de-bico e cogumelos, queijo vegano de castanha, guacamole fresco, tomate e alface crocante.",
-    price: 36.9,
-    rating: 4.6,
-    reviews: 89,
-    badge: "Vegano",
-    category: "veganos",
-    tags: ["Plant-based", "Vegano", "Saudável"],
-    imageUrl:
-      "https://images.unsplash.com/photo-1520072959219-c595dc870360?w=600&q=85&auto=format&fit=crop",
-    calories: 580,
-  },
-];
-
-const categories = [
-  { id: "todos", label: "Todos" },
-  { id: "classicos", label: "Clássicos" },
-  { id: "premium", label: "Premium" },
-  { id: "especiais", label: "Especiais" },
-  { id: "veganos", label: "Veganos" },
-];
-
-const badgeColors: Record<Badge, { bg: string; text: string }> = {
-  "Mais Pedido": { bg: "#facc15", text: "#000" },
-  "Novo": { bg: "#3b82f6", text: "#fff" },
-  "Chef's Pick": { bg: "#f97316", text: "#fff" },
-  "Vegano": { bg: "#22c55e", text: "#fff" },
-  "Limitado": { bg: "#ef4444", text: "#fff" },
+/* ─── labels de categoria (slug do banco → rótulo amigável) ─ */
+const CATEGORY_LABELS: Record<string, string> = {
+  classico: "Clássicos",
+  premium: "Premium",
+  especial: "Especiais",
+  vegano: "Veganos",
 };
 
-/* ─── star rating ───────────────────────────────────────── */
-function Stars({ rating }: { rating: number }) {
-  return (
-    <div className="flex items-center gap-0.5">
-      {[1, 2, 3, 4, 5].map((i) => (
-        <svg
-          key={i}
-          className="w-3 h-3"
-          viewBox="0 0 12 12"
-          fill={i <= Math.round(rating) ? "#facc15" : "rgba(255,255,255,0.15)"}
-        >
-          <path d="M6 1l1.24 3.82H11L7.88 7.08l1.24 3.82L6 8.64l-3.12 2.26L4.12 7.08 1 4.82h3.76z" />
-        </svg>
-      ))}
-    </div>
-  );
+function categoryLabel(slug: string): string {
+  return CATEGORY_LABELS[slug] ?? slug.charAt(0).toUpperCase() + slug.slice(1);
 }
 
 /* ─── burger card ────────────────────────────────────────── */
-function BurgerCard({ burger, index }: { burger: Burger; index: number }) {
+function BurgerCard({ burger, index }: { burger: Product; index: number }) {
   const { addBurger } = useCart();
   const [added, setAdded] = useState(false);
   const [liked, setLiked] = useState(false);
@@ -162,8 +29,6 @@ function BurgerCard({ burger, index }: { burger: Burger; index: number }) {
     setAdded(true);
     setTimeout(() => setAdded(false), 1800);
   };
-
-  const badgeStyle = burger.badge ? badgeColors[burger.badge] : null;
 
   return (
     <motion.article
@@ -184,19 +49,26 @@ function BurgerCard({ burger, index }: { burger: Burger; index: number }) {
       whileHover={{
         y: -6,
         boxShadow:
-          "0 12px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(250,204,21,0.12)",
+          "0 12px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(234,179,8,0.12)",
         transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] },
       }}
     >
       {/* image */}
       <div className="relative h-52 overflow-hidden bg-zinc-900">
-        <Image
-          src={burger.imageUrl}
-          alt={burger.name}
-          fill
-          className="object-cover transition-transform duration-700 group-hover:scale-110"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
+        {burger.imageUrl ? (
+          <Image
+            src={burger.imageUrl}
+            alt={burger.name}
+            fill
+            unoptimized
+            className="object-cover transition-transform duration-700 group-hover:scale-110"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        ) : (
+          <div className="absolute inset-0 grid place-items-center bg-zinc-800 text-zinc-600">
+            <span className="text-xs uppercase tracking-[0.2em]">Sem imagem</span>
+          </div>
+        )}
 
         {/* image overlay */}
         <div
@@ -207,15 +79,13 @@ function BurgerCard({ burger, index }: { burger: Burger; index: number }) {
           }}
         />
 
-        {/* badge */}
-        {badgeStyle && (
-          <div
-            className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.1em]"
-            style={{ background: badgeStyle.bg, color: badgeStyle.text }}
-          >
-            {burger.badge}
-          </div>
-        )}
+        {/* category badge */}
+        <div
+          className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.1em]"
+          style={{ background: "var(--neon)", color: "#000" }}
+        >
+          {categoryLabel(burger.category)}
+        </div>
 
         {/* like button */}
         <motion.button
@@ -235,46 +105,18 @@ function BurgerCard({ burger, index }: { burger: Burger; index: number }) {
           <svg
             className="w-4 h-4"
             viewBox="0 0 24 24"
-            fill={liked ? "#facc15" : "none"}
-            stroke={liked ? "#facc15" : "rgba(255,255,255,0.6)"}
+            fill={liked ? "var(--neon)" : "none"}
+            stroke={liked ? "var(--neon)" : "rgba(255,255,255,0.6)"}
             strokeWidth="2"
           >
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
           </svg>
         </motion.button>
 
-        {/* calories pill */}
-        <div
-          className="absolute bottom-3 right-3 px-2 py-0.5 rounded-full text-[10px] text-zinc-400 font-medium"
-          style={{
-            background: "rgba(0,0,0,0.6)",
-            backdropFilter: "blur(8px)",
-            border: "1px solid rgba(255,255,255,0.08)",
-          }}
-        >
-          {burger.calories} kcal
-        </div>
       </div>
 
       {/* content */}
       <div className="flex flex-col flex-1 p-5 gap-3">
-        {/* tags */}
-        <div className="flex flex-wrap gap-1.5">
-          {burger.tags.map((tag) => (
-            <span
-              key={tag}
-              className="text-[10px] uppercase tracking-[0.1em] font-semibold px-2 py-0.5 rounded-full"
-              style={{
-                background: "rgba(250,204,21,0.07)",
-                color: "rgba(250,204,21,0.7)",
-                border: "1px solid rgba(250,204,21,0.12)",
-              }}
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-
         {/* name */}
         <h3
           className="text-xl font-black uppercase tracking-tight leading-none text-white"
@@ -288,32 +130,18 @@ function BurgerCard({ burger, index }: { burger: Burger; index: number }) {
           {burger.description}
         </p>
 
-        {/* rating */}
-        <div className="flex items-center gap-2">
-          <Stars rating={burger.rating} />
-          <span className="text-xs font-semibold text-zinc-300">
-            {burger.rating.toFixed(1)}
-          </span>
-          <span className="text-xs text-zinc-600">({burger.reviews})</span>
-        </div>
-
         {/* divider */}
         <div className="h-px bg-zinc-800" />
 
         {/* price + cta */}
         <div className="flex items-center justify-between gap-3">
           <div className="flex flex-col">
-            {burger.oldPrice && (
-              <span className="text-xs text-zinc-600 line-through">
-                R$ {burger.oldPrice.toFixed(2).replace(".", ",")}
-              </span>
-            )}
             <span
               className="text-2xl font-black leading-none"
               style={{
                 fontFamily: "var(--font-bebas)",
-                color: "#facc15",
-                textShadow: "0 0 16px rgba(250,204,21,0.3)",
+                color: "var(--neon)",
+                textShadow: "0 0 16px rgba(234,179,8,0.3)",
               }}
             >
               R$ {burger.price.toFixed(2).replace(".", ",")}
@@ -332,9 +160,9 @@ function BurgerCard({ burger, index }: { burger: Burger; index: number }) {
                     boxShadow: "0 0 20px rgba(34,197,94,0.4)",
                   }
                 : {
-                    background: "#facc15",
+                    background: "var(--neon)",
                     color: "#000",
-                    boxShadow: "0 0 16px rgba(250,204,21,0.2)",
+                    boxShadow: "0 0 16px rgba(234,179,8,0.2)",
                   }
             }
             animate={added ? { scale: [1, 1.08, 1] } : {}}
@@ -363,15 +191,24 @@ function BurgerCard({ burger, index }: { burger: Burger; index: number }) {
 }
 
 /* ─── section ────────────────────────────────────────────── */
-export function BurgersSection() {
+export function BurgersSection({ products }: { products: Product[] }) {
   const [activeCategory, setActiveCategory] = useState("todos");
   const headerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(headerRef, { once: true, margin: "-80px" });
 
+  /* categorias geradas dinamicamente a partir dos produtos do banco */
+  const categories = useMemo(() => {
+    const slugs = Array.from(new Set(products.map((p) => p.category)));
+    return [
+      { id: "todos", label: "Todos" },
+      ...slugs.map((slug) => ({ id: slug, label: categoryLabel(slug) })),
+    ];
+  }, [products]);
+
   const filtered =
     activeCategory === "todos"
-      ? burgers
-      : burgers.filter((b) => b.category === activeCategory);
+      ? products
+      : products.filter((p) => p.category === activeCategory);
 
   return (
     <section
@@ -384,7 +221,7 @@ export function BurgersSection() {
         className="absolute inset-0 pointer-events-none opacity-50"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 50% 0%, rgba(250,204,21,0.04) 0%, transparent 60%)",
+            "radial-gradient(circle at 50% 0%, rgba(234,179,8,0.04) 0%, transparent 60%)",
         }}
       />
 
@@ -400,11 +237,11 @@ export function BurgersSection() {
           >
             <span
               className="block h-px w-10"
-              style={{ background: "#facc15" }}
+              style={{ background: "var(--neon)" }}
             />
             <span
               className="text-xs uppercase tracking-[0.3em] font-semibold"
-              style={{ color: "#facc15" }}
+              style={{ color: "var(--neon)" }}
             >
               Cardápio — Burgers
             </span>
@@ -428,8 +265,8 @@ export function BurgersSection() {
                 <br />
                 <span
                   style={{
-                    color: "#facc15",
-                    textShadow: "0 0 30px rgba(250,204,21,0.4)",
+                    color: "var(--neon)",
+                    textShadow: "0 0 30px rgba(234,179,8,0.4)",
                   }}
                 >
                   Gourmet
@@ -459,9 +296,9 @@ export function BurgersSection() {
                     style={
                       isActive
                         ? {
-                            background: "#facc15",
+                            background: "var(--neon)",
                             color: "#000",
-                            boxShadow: "0 0 16px rgba(250,204,21,0.3)",
+                            boxShadow: "0 0 16px rgba(234,179,8,0.3)",
                           }
                         : {
                             background: "rgba(255,255,255,0.05)",
@@ -499,6 +336,14 @@ export function BurgersSection() {
           </motion.div>
         </AnimatePresence>
 
+        {products.length === 0 && (
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-16 text-center">
+            <p className="text-sm uppercase tracking-[0.2em] text-zinc-500">
+              Cardápio em atualização. Volte em breve.
+            </p>
+          </div>
+        )}
+
         {/* ── ver cardápio completo ─────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -511,8 +356,8 @@ export function BurgersSection() {
             href="#"
             whileHover={{
               scale: 1.04,
-              borderColor: "rgba(250,204,21,0.5)",
-              color: "#facc15",
+              borderColor: "rgba(234,179,8,0.5)",
+              color: "var(--neon)",
             }}
             whileTap={{ scale: 0.97 }}
             className="flex items-center gap-3 px-8 py-4 rounded-full text-sm font-bold uppercase tracking-[0.12em] border text-zinc-400 transition-all duration-300"

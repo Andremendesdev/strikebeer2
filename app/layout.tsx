@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Barlow_Condensed, Bebas_Neue } from "next/font/google";
-import { Navbar } from "@/components/Navbar";
 import { CartProvider } from "@/context/CartContext";
-import { CartUI } from "@/components/CartUI";
+import { SiteChrome } from "@/components/SiteChrome";
 import "./globals.css";
 
 const barlowCondensed = Barlow_Condensed({
@@ -35,9 +34,7 @@ export default function RootLayout({
     <html lang="pt-BR" className={`${barlowCondensed.variable} ${bebasNeue.variable}`}>
       <body className="antialiased">
         <CartProvider>
-          <Navbar />
-          {children}
-          <CartUI />
+          <SiteChrome>{children}</SiteChrome>
         </CartProvider>
       </body>
     </html>

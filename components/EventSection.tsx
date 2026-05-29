@@ -52,8 +52,8 @@ function EventCard({ event, index }: { event: typeof events[0]; index: number })
       transition={{ duration: 0.55, ease: EASE, delay: index * 0.1 }}
       whileHover={{
         y: -4,
-        borderColor: "rgba(250,204,21,0.2)",
-        boxShadow: "0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(250,204,21,0.1)",
+        borderColor: "rgba(234,179,8,0.2)",
+        boxShadow: "0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(234,179,8,0.1)",
       }}
       className="group relative flex gap-5 p-6 rounded-2xl transition-all duration-300"
       style={{
@@ -66,13 +66,13 @@ function EventCard({ event, index }: { event: typeof events[0]; index: number })
       <div
         className="flex flex-col items-center justify-center shrink-0 w-14 h-14 rounded-xl"
         style={{
-          background: "rgba(250,204,21,0.07)",
-          border: "1px solid rgba(250,204,21,0.15)",
+          background: "rgba(234,179,8,0.07)",
+          border: "1px solid rgba(234,179,8,0.15)",
         }}
       >
         <span
           className="text-2xl leading-none font-black"
-          style={{ fontFamily: "var(--font-bebas)", color: "#facc15" }}
+          style={{ fontFamily: "var(--font-bebas)", color: "var(--neon)" }}
         >
           {event.day}
         </span>
@@ -109,7 +109,7 @@ function EventCard({ event, index }: { event: typeof events[0]; index: number })
           </span>
           <span
             className="text-[11px] font-semibold"
-            style={{ color: "#facc15" }}
+            style={{ color: "var(--neon)" }}
           >
             R$ {event.price.toFixed(2).replace(".", ",")}
           </span>
@@ -123,9 +123,9 @@ function EventCard({ event, index }: { event: typeof events[0]; index: number })
         onClick={(e) => e.stopPropagation()}
         className="self-center shrink-0 px-4 py-2 rounded-full text-[11px] font-bold uppercase tracking-[0.1em] opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden sm:flex"
         style={{
-          background: "#facc15",
+          background: "var(--neon)",
           color: "#000",
-          boxShadow: "0 0 14px rgba(250,204,21,0.25)",
+          boxShadow: "0 0 14px rgba(234,179,8,0.25)",
         }}
       >
         Ingressos
@@ -150,7 +150,7 @@ export function EventSection() {
         className="absolute top-0 left-0 right-0 h-px pointer-events-none"
         style={{
           background:
-            "linear-gradient(to right, transparent, rgba(250,204,21,0.2) 30%, rgba(250,204,21,0.35) 50%, rgba(250,204,21,0.2) 70%, transparent)",
+            "linear-gradient(to right, transparent, rgba(234,179,8,0.2) 30%, rgba(234,179,8,0.35) 50%, rgba(234,179,8,0.2) 70%, transparent)",
         }}
       />
 
@@ -164,8 +164,8 @@ export function EventSection() {
             transition={{ duration: 0.6, ease: EASE }}
             className="flex items-center gap-3 mb-5"
           >
-            <span className="block h-px w-10" style={{ background: "#facc15" }} />
-            <span className="text-xs uppercase tracking-[0.3em] font-semibold" style={{ color: "#facc15" }}>
+            <span className="block h-px w-10" style={{ background: "var(--neon)" }} />
+            <span className="text-xs uppercase tracking-[0.3em] font-semibold" style={{ color: "var(--neon)" }}>
               Agenda — Shows ao Vivo
             </span>
           </motion.div>
@@ -185,7 +185,7 @@ export function EventSection() {
               }}
             >
               Shows{" "}
-              <span style={{ color: "#facc15", textShadow: "0 0 28px rgba(250,204,21,0.35)" }}>
+              <span style={{ color: "var(--neon)", textShadow: "0 0 28px rgba(234,179,8,0.35)" }}>
                 ao Vivo
               </span>
             </h2>
@@ -195,7 +195,7 @@ export function EventSection() {
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : {}}
               transition={{ delay: 0.35 }}
-              whileHover={{ color: "#facc15" }}
+              whileHover={{ color: "var(--neon)" }}
               className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.15em] text-zinc-600 transition-colors duration-300 pb-2"
             >
               Ver agenda completa
