@@ -2,7 +2,7 @@
 
 @layer base {
   :root {
-    --neon: var(--color-amber-500);
+    --neon: var(--color-amber-400);
     --neon-rgb: 234 179 8;
     --neon-dim: var(--color-yellow-600);
     --bg: #09090b;
